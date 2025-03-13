@@ -2,12 +2,17 @@
 
 namespace App\Livewire;
 
+use App\Models\Messages;
 use Livewire\Component;
 
 class ProcessMessagesTable extends Component
 {
+
     public function render()
     {
-        return view('livewire.process-messages-table');
+        $messages = Messages::query()->paginate();
+        return view('livewire.process-messages-table', [
+            'messages' => $messages
+        ]);
     }
 }
