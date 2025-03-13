@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Http\Requests\InsertMessages;
+use App\Models\Messages;
 
 class MessageProcessorService
 {
@@ -21,10 +22,25 @@ class MessageProcessorService
      */
     public function insert(InsertMessages $request)
     {
-        $hello = [
-            'hi' => 'horray'
-        ];
-        return response()->json($hello);
+       $message = $request->safe()->input('message');
+
+       try {
+        //code...
+       $messageBucket = new Messages();
+       $messageBucket->message = $message;
+       $messageBucket->processed = false;
+       $messageBucket->save();
+
+
+
+       return response()->json(['success' => true]);
+
+       } catch (\Exception $exception) {
+        report($exception);
+       }
+
+
+       return response()->json(['error' => 'Server error'], 500);
     }
 
     /**
