@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use App\Http\Requests\InsertMessages;
+
 class MessageProcessorService
 {
     /**
@@ -17,10 +19,12 @@ class MessageProcessorService
      * as Que
      * @return void
      */
-    public function insert($request)
+    public function insert(InsertMessages $request)
     {
-
-        return;
+        $hello = [
+            'hi' => 'horray'
+        ];
+        return response()->json($hello);
     }
 
     /**
