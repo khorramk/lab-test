@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Events\ProcessMessages;
 use App\Models\Messages;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -12,7 +13,7 @@ class ProcessMessagesTable extends Component
 
     public function render()
     {
-        $messages = Messages::query()->paginate();
+        $messages = Messages::query()->where('processed', false)->paginate(5);
         return view('livewire.process-messages-table', [
             'messages' => $messages
         ]);
@@ -24,9 +25,9 @@ class ProcessMessagesTable extends Component
             $message = Messages::query()->find($id);
             $message->processed = true;
             $message->save();
-
             //TODO broadcast to the message user if you can
 
+            broadcast(new ProcessMessages($message))->toOthers();
             session()->flash('processed', true);
         } catch (\Exception $exception) {
             report($exception);
