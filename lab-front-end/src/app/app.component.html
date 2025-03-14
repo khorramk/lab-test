@@ -20,7 +20,7 @@
     <div class="editor mx-auto w-10/12 flex flex-col text-gray-800 border border-gray-300 p-4 shadow-lg max-w-2xl">
       <textarea formControlName="messageQuery" class="description bg-gray-100 sec p-3 h-60 border border-gray-300 outline-none" spellcheck="false" placeholder="Describe everything about your queries here"></textarea>
       <!-- buttons -->
-      <div class="buttons flex">
+      <div class="buttons flex mt-5 justify-end">
         @if (loading()) {
           <div style="border-top-color:transparent" class="w-8 h-8 border-4 border-blue-200 rounded-full animate-spin"></div>
         <p class="ml-2">wait...</p>
@@ -29,7 +29,7 @@
         @if (pending()) {
           <span class="bg-yellow-100 text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm dark:bg-yellow-900 dark:text-yellow-300">Processing</span>
         } @else {
-          <button [disabled]="!messageForm.valid" class="btn border border-indigo-500 p-1 px-4 font-semibold cursor-pointer text-gray-200 ml-2 bg-indigo-500">Go</button>
+          <button [disabled]="!messageForm.valid" class=" rounded btn border border-indigo-500 p-1 px-4 font-semibold cursor-pointer text-gray-200 ml-2 bg-indigo-500">Go</button>
 
         }
 
@@ -54,11 +54,10 @@
   </section>
   <section>
     @if (success()) {
-      <div class="bg-green-600">
-        Sent,
+      <div class="bg-green-400 max-w-md text-center mx-auto mt-6 p-8">
+        Processed!
       </div>
     }
-
   </section>
 </main>
 

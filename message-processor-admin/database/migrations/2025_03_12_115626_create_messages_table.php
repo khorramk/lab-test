@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
             $table->longText('message');
-            $table->boolean('processed');
+            $table->boolean('processed')->default(false);
             $table->timestamps();
         });
     }
