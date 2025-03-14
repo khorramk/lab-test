@@ -1,4 +1,4 @@
-# Labe test 
+# Lab test 
 
 1. Laravel used for admin interface and livewire
 2. Reverb used 
