@@ -8,6 +8,7 @@ class Messages extends Model
 {
     protected $fillable = [
         'message',
-        'processed'
+        'processed',
+        'client_id',
     ];
 }
