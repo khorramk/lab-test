@@ -2,6 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, computed, Signal, signal, WritableSignal } from '@angular/core';
 import {ReactiveFormsModule, Validators, FormGroup, FormControl} from '@angular/forms';
 import { environment } from '../environments/environment';
+import { v4 as uuidv4 } from 'uuid';
 @Component({
   selector: 'app-root',
   imports: [ReactiveFormsModule],
@@ -41,8 +42,10 @@ export class AppComponent {
         return status[0]
     }
   })
+
   constructor(private http: HttpClient) {
   }
+
   messageForm = new FormGroup({
     messageQuery: new FormControl('', Validators.required),
   });
@@ -51,8 +54,11 @@ export class AppComponent {
       this.error.set({});
       const self = this;
       this.loading.set(true);
+      const uuid = this.generateUUID();
+      localStorage.setItem('uuid', uuid);
       this.http.post(`${environment.apiURL}/process/message`, {
-        message: this.messageForm.value.messageQuery
+        message: this.messageForm.value.messageQuery,
+        client_id: localStorage.getItem('uuid'),
       }, {observe: 'response'})
       .subscribe({
         next(response) {
@@ -73,4 +79,9 @@ export class AppComponent {
       this.pending.set(true);
     }, 200);
   }
+
+  generateUUID(): string {
+      return uuidv4();
+  }
+
 }
