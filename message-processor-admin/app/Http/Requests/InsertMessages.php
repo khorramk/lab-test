@@ -22,14 +22,8 @@ class InsertMessages extends FormRequest
     public function rules(): array
     {
         return [
-            'message' => 'required|string'
-        ];
-    }
-
-    public function messages(): array
-    {
-        return [
-            'message' => 'A relevant text message is required'
+            'message' => 'required|string',
+            'client_id' => 'required|int',
         ];
     }
 }
