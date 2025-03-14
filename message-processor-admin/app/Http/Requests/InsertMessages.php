@@ -23,7 +23,7 @@ class InsertMessages extends FormRequest
     {
         return [
             'message' => 'required|string',
-            'client_id' => 'required|int',
+            'client_id' => 'required|uuid',
         ];
     }
 }
