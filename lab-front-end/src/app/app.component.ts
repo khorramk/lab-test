@@ -1,5 +1,5 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Component, computed, Signal, signal, WritableSignal } from '@angular/core';
+import { Component, computed, Signal, signal, WritableSignal, OnInit } from '@angular/core';
 import {ReactiveFormsModule, Validators, FormGroup, FormControl} from '@angular/forms';
 import { environment } from '../environments/environment';
 import { v4 as uuidv4 } from 'uuid';
@@ -84,4 +84,22 @@ export class AppComponent {
       return uuidv4();
   }
 
+  ngOnInit() {
+    window.Echo.channel('process.messages')
+    .listen('ProcessMessages', (e: any) => {
+        const event = e;
+        console.dir(e);
+        if (e.messages) {
+          console.dir(e.messages);
+          if (localStorage.getItem('uuid') === e.messages.client_id) {
+            this.success.set(true);
+            this.pending.set(false);
+            return;
+          }
+          this.success.set(false);
+        }
+    });
+  }
+
 }
+
