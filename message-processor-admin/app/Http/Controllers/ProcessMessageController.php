@@ -8,8 +8,8 @@ use Illuminate\Http\Request;
 
 class ProcessMessageController extends Controller
 {
-    public function insert(InsertMessages $request, MessageProcessorService $messageProcessorService)
+    public function __invoke(InsertMessages $request, MessageProcessorService $messageProcessorService)
     {
-        return $messageProcessorService->insert($request);
+        return $messageProcessorService($request);
     }
 }
